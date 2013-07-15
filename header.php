@@ -47,12 +47,18 @@
 
 				<div id="inner-header" class="wrap clearfix">
 
-					<!-- to use a image just replace the bloginfo('name') with your img src and remove the surrounding <p> -->
-					<p id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></p>
-
+					<!-- Set Logo in Theme Options -->
+					<div id="logo"><a href="<?php echo home_url(); ?>" rel="nofollow">
+					<?php $logo = get_field('logo', 'option');
+						if($logo) { 
+							echo '<img class="logo" src="'. $logo .'"/>';
+						} else {
+							bloginfo('name');
+						}?>
+					</a></div>
+							
 					<!-- if you'd like to use the site description you can un-comment it below -->
 					<?php // bloginfo('description'); ?>
-
 
 					<nav role="navigation">
 						<?php bones_main_nav(); ?>

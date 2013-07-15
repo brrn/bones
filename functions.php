@@ -1,74 +1,23 @@
 <?php
 /*
-Author: Eddie Machado
-URL: htp://themble.com/bones/
-
-This is where you can drop your custom functions or
-just edit things like thumbnail sizes, header images,
-sidebars, comments, ect.
+Author: Connect Think
+URL: htp://connectthink.com/
 */
 
 /************* INCLUDE NEEDED FILES ***************/
 
-/*
-1. library/bones.php
-	- head cleanup (remove rsd, uri links, junk css, ect)
-	- enqueueing scripts & styles
-	- theme support functions
-	- custom menu output & fallbacks
-	- related post function
-	- page-navi function
-	- removing <p> from around images
-	- customizing the post excerpt
-	- custom google+ integration
-	- adding custom fields to user profiles
-*/
+
 require_once('library/bones.php'); // if you remove this, bones will break
-/*
-2. library/custom-post-type.php
-	- an example custom post type
-	- example custom taxonomy (like categories)
-	- example custom taxonomy (like tags)
-*/
 require_once('library/custom-post-type.php'); // you can disable this if you like
-/*
-3. library/admin.php
-	- removing some default WordPress dashboard widgets
-	- an example custom dashboard widget
-	- adding custom login css
-	- changing text in footer of admin
-*/
-// require_once('library/admin.php'); // this comes turned off by default
-/*
-4. library/translation/translation.php
-	- adding support for other languages
-*/
-// require_once('library/translation/translation.php'); // this comes turned off by default
+require_once('library/admin.php'); // Theme Options / ACF Configuration
+// require_once('library/translation/translation.php'); // optional translation
 
 /************* THUMBNAIL SIZE OPTIONS *************/
 
 // Thumbnail sizes
 add_image_size( 'bones-thumb-600', 600, 150, true );
 add_image_size( 'bones-thumb-300', 300, 100, true );
-/*
-to add more sizes, simply copy a line from above
-and change the dimensions & name. As long as you
-upload a "featured image" as large as the biggest
-set width or height, all the other sizes will be
-auto-cropped.
 
-To call a different size, simply change the text
-inside the thumbnail function.
-
-For example, to call the 300 x 300 sized image,
-we would use the function:
-<?php the_post_thumbnail( 'bones-thumb-300' ); ?>
-for the 600 x 100 image:
-<?php the_post_thumbnail( 'bones-thumb-600' ); ?>
-
-You can change the names and dimensions to whatever
-you like. Enjoy!
-*/
 
 /************* ACTIVE SIDEBARS ********************/
 
@@ -83,32 +32,7 @@ function bones_register_sidebars() {
 		'before_title' => '<h4 class="widgettitle">',
 		'after_title' => '</h4>',
 	));
-
-	/*
-	to add more sidebars or widgetized areas, just copy
-	and edit the above sidebar code. In order to call
-	your new sidebar just use the following code:
-
-	Just change the name to whatever your new
-	sidebar's id is, for example:
-
-	register_sidebar(array(
-		'id' => 'sidebar2',
-		'name' => __('Sidebar 2', 'bonestheme'),
-		'description' => __('The second (secondary) sidebar.', 'bonestheme'),
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget' => '</div>',
-		'before_title' => '<h4 class="widgettitle">',
-		'after_title' => '</h4>',
-	));
-
-	To call the sidebar in your template, you can just copy
-	the sidebar.php file and rename it to your sidebar's name.
-	So using the above example, it would be:
-	sidebar-sidebar2.php
-
-	*/
-} // don't remove this bracket!
+}
 
 /************* COMMENT LAYOUT *********************/
 
