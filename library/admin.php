@@ -12,7 +12,8 @@ This file handles the admin area and functions.
 
 /************* 1. CUSTOM LOGIN PAGE *****************/
 
-// calling your own login css so you can style it
+// Edit the css in /library/css/login.css
+// calling login stylesheet
 function bones_login_css() {
 	wp_enqueue_style( 'bones_login_css', get_template_directory_uri() . '/library/css/login.css', false );
 }

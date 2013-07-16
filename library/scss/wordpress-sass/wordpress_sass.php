@@ -16,7 +16,7 @@ License: New BSD License (http://www.opensource.org/licenses/bsd-license.php)
 *  Changes include 
 *     *added WPSASS_TARGET_DIR and editing WP_SS_DIR
 *     *Updated functions to reflect different directors for source and target
-*     *Moved the target enqueuing to admin.php
+*     *Added directory loop to needs_update function to see if imported files have been modified
 */
 
 define('WPSASS_VERSION', '3.3.05');
@@ -73,8 +73,16 @@ function wpsass_validate_stylesheet($filename) {
 function wpsass_needs_update($source, $target) {
   if(!file_exists(WPSASS_TARGET_DIR.$target)) return(true);
 
-  $source_date = filemtime(WPSASS_SS_DIR.$source);
   $target_date = filemtime(WPSASS_TARGET_DIR.$target);
+
+  // Get modified time of last modified item in the sass folder
+  $source_dir = new DirectoryIterator(substr(WPSASS_SS_DIR, 0, -1));
+  $source_date = -1;
+  foreach ($source_dir as $source_file) {
+    if ($source_file->isFile() && $source_file->getMTime() > $source_date) {
+     $source_date = $source_file->getMTime();
+    }
+  } 
 
   return($source_date > $target_date);
 }
