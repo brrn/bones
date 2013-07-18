@@ -49,6 +49,13 @@ include_once('ACF/acf-flexible-content/acf-flexible-content.php');
 
 // Include Theme Option Fields
 include_once('ACF/acf_theme_options.php');
+	//Register Options Pages
+if(function_exists("register_options_page"))
+{
+    register_options_page('Admin');
+    register_options_page('Theme');
+ }
+
 
 
 /*************** 3. Theme Config ********************/
@@ -102,14 +109,7 @@ if( function_exists('get_field') ){
 
 /*************** 3. Sass Config ********************/
 
-
-/*function generate_css() {
-	if(function_exists('wpsass_define_stylesheet')) {
-		wpsass_define_stylesheet("theme.scss", true);
-	}
-}
-add_action( 'after_setup_theme', 'generate_css' );*/
-
+// Include Wordpress Sass Plugin
 include_once('scss/wordpress-sass/wordpress_sass.php');
 function generate_css() {
 if(function_exists('wpsass_define_stylesheet')) {

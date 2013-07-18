@@ -6,15 +6,9 @@
 if(function_exists("register_field_group"))
 {
     register_field_group(array (
-        'id' => 'acf_theme-options-2',
-        'title' => 'Theme Options',
+        'id' => 'acf_admin-options',
+        'title' => 'Admin Options',
         'fields' => array (
-            array (
-                'key' => 'field_51ddbbe8729f1',
-                'label' => 'Global',
-                'name' => '',
-                'type' => 'tab',
-            ),
             array (
                 'key' => 'field_51ddbbf1729f2',
                 'label' => 'Maintenance Mode',
@@ -65,14 +59,32 @@ if(function_exists("register_field_group"))
                 'default_value' => '',
                 'formatting' => 'none',
             ),
-            array (
-                'key' => 'field_51ddbd9d90eb0',
-                'label' => 'Theme',
-                'name' => '',
-                'type' => 'tab',
+        ),
+        'location' => array (
+            'rules' => array (
+                array (
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'acf-options-admin',
+                    'order_no' => 0,
+                ),
             ),
+            'allorany' => 'all',
+        ),
+        'options' => array (
+            'position' => 'normal',
+            'layout' => 'no_box',
+            'hide_on_screen' => array (
+            ),
+        ),
+        'menu_order' => 0,
+    ));
+    register_field_group(array (
+        'id' => 'acf_theme-options-2',
+        'title' => 'Theme Options',
+        'fields' => array (
             array (
-                'key' => 'field_51ddbda890eb1',
+                'key' => 'field_51e7f2f36f775',
                 'label' => 'Logo',
                 'name' => 'logo',
                 'type' => 'image',
@@ -80,28 +92,28 @@ if(function_exists("register_field_group"))
                 'preview_size' => 'thumbnail',
             ),
             array (
-                'key' => 'field_51ddbdc390eb2',
-                'label' => 'Social Media Profiles',
-                'name' => 'social_media',
+                'key' => 'field_51e7f3366f776',
+                'label' => 'Social Profiles',
+                'name' => 'social_profiles',
                 'type' => 'repeater',
                 'sub_fields' => array (
                     array (
-                        'key' => 'field_51ddbdd690eb3',
+                        'key' => 'field_51e7f3406f777',
                         'label' => 'Icon',
                         'name' => 'icon',
                         'type' => 'image',
                         'column_width' => '',
-                        'save_format' => 'id',
+                        'save_format' => 'url',
                         'preview_size' => 'thumbnail',
                     ),
                     array (
-                        'key' => 'field_51ddbde990eb4',
+                        'key' => 'field_51e7f3516f778',
                         'label' => 'Link',
                         'name' => 'link',
                         'type' => 'text',
                         'column_width' => '',
                         'default_value' => '',
-                        'formatting' => 'html',
+                        'formatting' => 'none',
                     ),
                 ),
                 'row_min' => 0,
@@ -115,7 +127,7 @@ if(function_exists("register_field_group"))
                 array (
                     'param' => 'options_page',
                     'operator' => '==',
-                    'value' => 'acf-options',
+                    'value' => 'acf-options-theme',
                     'order_no' => 0,
                 ),
             ),
@@ -130,5 +142,3 @@ if(function_exists("register_field_group"))
         'menu_order' => 0,
     ));
 }
-
-?>
