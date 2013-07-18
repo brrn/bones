@@ -113,7 +113,7 @@ if( function_exists('get_field') ){
 include_once('scss/wordpress-sass/wordpress_sass.php');
 function generate_css() {
 if(function_exists('wpsass_define_stylesheet')) {
-	wpsass_define_stylesheet("theme.scss", true);
+	wpsass_define_stylesheet("theme.scss");
 	}
 }
 add_action( 'after_setup_theme', 'generate_css' );
