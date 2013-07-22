@@ -87,5 +87,16 @@ function bones_wpsearch($form) {
 
 /************* Front End Plugins *****************/
 
-
+/*
+add_action('wp_head', 'js_plugins_and_styles', 1);
+function js_plugins_and_styles() {
+	if (!is_admin()) {
+		wp_register_script('name', get_stylesheet_directory_uri() . '/library/js/libs/name.min.js', 'ver');
+		wp_register_style('name-style', get_stylesheet_directory_uri() . '/library/css/name.min.css', 'ver');
+		
+		wp_enqueue_style('name-style');
+		wp_enqueue_script('name');
+	}
+}
+*/
 ?>
