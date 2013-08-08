@@ -109,6 +109,13 @@ if( function_exists('get_field') ){
 
 /*************** 3. Sass Config ********************/
 
+
+// scssPHP 
+$directory = get_template_directory_uri()."/library/scss";
+require_once 'scssphp/scss.inc.php';
+scss_server::serveFrom($directory);
+
+/*
 // Include Wordpress Sass Plugin
 include_once('scss/wordpress-sass/wordpress_sass.php');
 function generate_css() {
@@ -117,6 +124,6 @@ if(function_exists('wpsass_define_stylesheet')) {
 	}
 }
 add_action( 'after_setup_theme', 'generate_css' );
-
+*/
 
 ?>
