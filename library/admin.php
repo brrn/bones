@@ -18,10 +18,10 @@ function bones_login_css() {
 	wp_enqueue_style( 'bones_login_css', get_template_directory_uri() . '/library/css/login.css', false );
 }
 
-// changing the logo link from wordpress.org to your site
+// changing the logo link from wordpress.org to the site
 function bones_login_url() {  return home_url(); }
 
-// changing the alt text on the logo to show your site name
+// changing the alt text on the logo to show the site name
 function bones_login_title() { return get_option('blogname'); }
 
 // calling it only on the login page
@@ -55,7 +55,6 @@ if(function_exists("register_options_page"))
     register_options_page('Admin');
     register_options_page('Theme');
  }
-
 
 
 /*************** 3. Theme Config ********************/
@@ -110,12 +109,6 @@ if( function_exists('get_field') ){
 /*************** 3. Sass Config ********************/
 
 
-// scssPHP 
-$directory = get_template_directory_uri()."/library/scss";
-require_once 'scssphp/scss.inc.php';
-scss_server::serveFrom($directory);
-
-/*
 // Include Wordpress Sass Plugin
 include_once('scss/wordpress-sass/wordpress_sass.php');
 function generate_css() {
@@ -124,6 +117,7 @@ if(function_exists('wpsass_define_stylesheet')) {
 	}
 }
 add_action( 'after_setup_theme', 'generate_css' );
-*/
+
+
 
 ?>

@@ -93,10 +93,13 @@ function wpsass_update_stylesheet($source, $target) {
   $target_file = WPSASS_TARGET_DIR.$target;
 
   try {
-    include_once(WPSASS_PLUGIN_DIR."phpsass/SassParser.php");
-    $sass_parser = new SassParser(array('cache'=>false, 'style' => 'nested'));
-    $css = $sass_parser->toCss($source_file);
+    include_once(WPSASS_PLUGIN_DIR."scssphp/scss.inc.php");
+    $scss = new scssc();
+    $scss->setFormatter('scss_formatter_compressed');
+    $scss->setImportPaths(WPSASS_SS_DIR);
     
+    $css = $scss->compile(file_get_contents($source_file));
+
     if(is_writable($target_file)) {
       $fh = fopen($target_file, 'w');
       if($fh) {
