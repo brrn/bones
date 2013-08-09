@@ -3,18 +3,13 @@
    
     // Typography
 
-    // Helpers
-    @mixin link-style($link-color, $hover-color: darken($link-color, 10%)) {
-    a, a:link, a:visited {
-        color: $link-color;
-        &:hover, &:focus{color: $hover-color;}
-        }
-    }  
-// Import Sass Libs  
-@import 'bourbon/bourbon';
+  
+// Import Sass Libs   
+@import 'bourbon/bourbon'; 
   
 // Import Stylesheets
 @import '_style.scss';
 @import '_mobile.scss';
 
 
+   
