@@ -34,9 +34,11 @@ if ($css != file_get_contents($output_file)) {
 // Enqueue
 function enqueue_file() {
   $uri = get_template_directory_uri().'/library/css/theme.css';
+  $deps = array('bones-stylesheet');
  wp_register_style(
     'theme_style', 
-    $uri
+    $uri,
+    $deps
   );
   wp_enqueue_style('theme_style');
 }

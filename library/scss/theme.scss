@@ -5,11 +5,8 @@
 
   
 // Import Sass Libs   
-@import 'bourbon/bourbon'; 
+@import 'compass/compass';
   
 // Import Stylesheets
-@import '_style.scss';
-@import '_mobile.scss';
-
-
-   
+@import 'style';
+@import 'mobile';
