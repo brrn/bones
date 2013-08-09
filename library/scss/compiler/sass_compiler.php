@@ -1,13 +1,14 @@
 <?php
-/* Sass Compiler 1.0 */
+/* Sass Compiler 1.1 */
+/* Changes Log
+    1.1 - Added ability to loop through any number of sass files 
+          and compile. Loop skips over files with '_'.
+*/
+
 
 // Define Directories
-$input_dir = get_stylesheet_directory().'/library/scss';
-$output_dir = get_stylesheet_directory().'/library/css';
-
-// Define Files
-$input_file = $input_dir.'/theme.scss';
-$output_file = $output_dir.'/theme.css';
+$input_dir = get_stylesheet_directory().'/library/scss/';
+$output_dir = get_stylesheet_directory().'/library/css/';
 
 // Setup
 require_once __DIR__ . "/scssphp/scss.inc.php";
@@ -15,32 +16,56 @@ $scss = new scssc();
 $scss->setFormatter('scss_formatter_compressed');
 $scss->setImportPaths($input_dir);
 
-// Error Handling
-function myException($exception) {
-  echo "<strong>Sass Syntax Error:</strong> " , $exception->getMessage();
-}
-set_exception_handler('myException');
 
-// Compile
-$css = $scss->compile(file_get_contents($input_file));
-if ($css != file_get_contents($output_file)) { 
-  try {
-    $css = $scss->compile(file_get_contents($input_file));
-    file_put_contents($output_file, $css);
-  } catch (Exception $e) {}
-  enqueue_file();
+// Get Sass Files, don't include those with '_' or sub directories
+$input_files = array();
+$dir = new DirectoryIterator($input_dir);
+foreach ($dir as $fileinfo) {
+  if (substr($fileinfo->getFilename(), 0, 1) != "_" && $fileinfo->getExtension() == 'scss') {
+    array_push($input_files, $fileinfo->getFilename());
+  }
 }
 
-// Enqueue
-function enqueue_file() {
-  $uri = get_template_directory_uri().'/library/css/theme.css';
+// Compile Logic
+function needsUpdate($s, $inFname, $outFname) {
+  if (!file_exists($outFname)) {
+    return true;
+  } elseif($s->compile(file_get_contents($inFname)) != file_get_contents($outFname)) {
+    return true;
+  }
+}
+function compile($s, $in, $out) {
+   try {
+      $css = $s->compile(file_get_contents($in));
+      file_put_contents($out, $css);
+    } catch (Exception $e) {}
+}
+
+// Compile Files
+foreach($input_files as $input_file) {
+  $input = $input_dir.$input_file;
+  $outputName = preg_replace("/\.[^$]*/",".min.css", $input_file);
+  $output = $output_dir.$outputName;
+  if (needsUpdate($scss, $input, $ouput)) { 
+    compile($scss, $input, $output);
+  }
+  enqueue_file($outputName);
+}
+
+// Enqueue Compiled Files
+function enqueue_file($compiled_css) {
+  $name = preg_replace("/\.[^$]*/","", $compiled_css);
+  $uri = get_template_directory_uri().'/library/css/'.$compiled_css;
   $deps = array('bones-stylesheet');
  wp_register_style(
-    'theme_style', 
+    $name,
     $uri,
     $deps
   );
-  wp_enqueue_style('theme_style');
+  wp_enqueue_style($name);
 }
 
+// Error Handling
+function myException($exception) {echo "<strong>Sass Syntax Error:</strong> " , $exception->getMessage();}
+set_exception_handler('myException');
 ?>
