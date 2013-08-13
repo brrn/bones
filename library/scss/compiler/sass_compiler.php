@@ -21,7 +21,7 @@ $scss->setImportPaths($input_dir);
 $input_files = array();
 $dir = new DirectoryIterator($input_dir);
 foreach ($dir as $fileinfo) {
-  if (substr($fileinfo->getFilename(), 0, 1) != "_" && $fileinfo->getExtension() == 'scss') {
+  if (substr($fileinfo->getFilename(), 0, 1) != "_" && pathinfo($fileinfo, PATHINFO_EXTENSION) == 'scss') {
     array_push($input_files, $fileinfo->getFilename());
   }
 }
@@ -64,6 +64,8 @@ function enqueue_file($compiled_css) {
   );
   wp_enqueue_style($name);
 }
+
+
 
 // Error Handling
 function myException($exception) {echo "<strong>Sass Syntax Error:</strong> " , $exception->getMessage();}
