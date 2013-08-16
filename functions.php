@@ -85,6 +85,24 @@ function bones_wpsearch($form) {
 	return $form;
 } // don't remove this bracket!
 
+/*************** Print Functions ******************/
+
+// Print Social Media Icons from Options->Theme
+function social_media_icons() {
+	$social = get_field('social_profiles', 'option');
+	if ($social) :
+		echo '<div class="social_media">';
+		echo '<ul>';
+			foreach ($social as $profile) {
+				if( $profile['icon'] && $profile['link']) {
+					echo '<li class="profile"><a href="'. $profile['link'] .'" target="_blank"><img src="'. $profile['icon'] .'"/></a></li>';
+				}
+			} 
+		echo '</div>';
+		echo '</ul>';
+	endif;
+}
+
 /************* Front End Plugins *****************/
 
 /*
